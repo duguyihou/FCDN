@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Face</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    p {
+      margin: 0;
+    }
+    h1 {
+      margin: 0 0 20px 0;
+    }
+    .btn-delete {
+      position: absolute;
+      top: 8px;
+      right: 23px;
+    }
+    .p-center {
+      text-align: center;
+    }
+    .file-input {
+      display: flex !important;
+    }
+    .people-display {
+      padding-top: 7px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .people-badge {
+      border-radius: 13px;
+      margin-right: 8px;
+      padding: 5px 10px;
+      background-color: #5bc0de;
+      color: white;
+      font-weight: bold;
+      border-color: #46b8da;
+    }
+    .people-icon {
+      margin-right: 5px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Face</a>
+      </div>
+      <div class="navbar-header">
+        <form action="/logout" method="post">
+          <button type="submit" class="navbar-brand btn btn-link btn-logout">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    {{#if images}}
+      <h1>Faces</h1>
+    {{/if}}
+    <div class="row">
+    {{#each images}}
+      <div class="col-sm-3">
+        <div class="thumbnail">
+          <img src="{{this.url}}" style="width:100%" />
+          <div class="caption">
+            <p class="p-center">{{this.imageName}}</p>
+          </div>
+            <form action="/images/actions/delete/{{this.imageName}}" method="post">
+              <button type="submit" class="btn btn-danger btn-delete" aria-label="Delete">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" />
+            </form>
+          </button>
+        </div>
+      </div>
+    {{/each}}
+    </div>
+    <h1>Add a Person</h1>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" action="/images" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="file" class="control-label col-sm-2">Image:</label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control file-input" id="file" name="file" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name" class="control-label col-sm-2">Full name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Add to FamiliarFace</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <h1>Recognize People</h1>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" action="/recognition" enctype="multipart/form-data" method="post">
+          <div class="form-group">
+            <label for="recognizeFile" class="control-label col-sm-2">Image:</label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control file-input" id="recognizeFile" name="file" required>
+            </div>
+          </div>
+            {{#if recognitionComplete}}
+              <div class="form-group">
+                <label for="recognizeFile" class="control-label col-sm-2">Preview:</label>
+                <div class="col-sm-10">
+                  <img src="/recognition/last-processed-image" style="max-width: 100%; max-height: 450px" />
+                </div>
+              </div>
+            {{/if}}
+          <div class="form-group">
+            <label class="control-label col-sm-2">People:</label>
+            <div class="col-sm-10 people-display">
+              {{#each matchingNames}}
+                <div class="people-badge">
+                  <span class="glyphicon glyphicon-user people-icon"></span> {{this}}
+                </div>
+              {{/each}}
+              {{#unless matchingNames}}
+                {{#if recognitionComplete}}
+                  <i>No one was recognized on the picture :(</i>
+                {{else}}
+                  <i>Upload image to recognize people in it!</i>
+                {{/if}}
+              {{/unless}}
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Check for Familiar Faces</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
