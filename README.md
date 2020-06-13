@@ -5,5 +5,6 @@
 Download LTS [Node.js](https://nodejs.org/download/release/)
 
 ## Run
-npm install 
-node server.js
+`npm install`
+
+`node server.js`
