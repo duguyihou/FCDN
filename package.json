@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/multer": "^2.0.2",
+    "@tensorflow/tfjs-core": "^2.0.0",
     "@tensorflow/tfjs-node": "^2.0.0",
     "canvas": "^2.6.1",
     "dotenv": "^8.2.0",

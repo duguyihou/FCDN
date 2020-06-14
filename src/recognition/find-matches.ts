@@ -7,7 +7,7 @@ import { getUsersImagesData } from '../images/services';
 const { Canvas, Image, ImageData } = canvas as any;
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData });
 
-const faceDetectionOptions = new faceapi.SsdMobilenetv1Options({ minConfidence: 0.5 });
+const faceDetectionOptions = new faceapi.SsdMobilenetv1Options({ minConfidence: 0.8 });
 const weightsPath = path.join(__dirname, 'weights');
 
 let configured = false;
@@ -91,8 +91,20 @@ export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFa
         
           facesMatchers.forEach((result, i) => {
 
+            var labelResult
+
+            if (matchingNames[i] == null) {
+
+              labelResult = "Unkown"
+            }
+
+            else {
+
+              labelResult = matchingNames[i]
+            }
+
             const box = resizedDetection[i].detection.box
-            const drawBox = new faceapi.draw.DrawBox(box, { label: matchingNames[i] })
+            const drawBox = new faceapi.draw.DrawBox(box, { label: labelResult })
             drawBox.draw(canvasBoxes)
           })
           

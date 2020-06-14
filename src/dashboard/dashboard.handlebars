@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="bgimage" lang="en">
 <head>
   <title>Facial Detection</title>
   <meta charset="utf-8">
@@ -11,8 +11,18 @@
     p {
       margin: 0;
     }
+    html, body {
+    margin: 0;
+    height: 100%;
+    }
     h1 {
       margin: 0 0 20px 0;
+    }
+    td {
+      border-top: 1px solid #000;
+    }
+    .bgimage {
+      background-image: url('src/assets/Background.png');
     }
     .btn-delete {
       position: absolute;
@@ -43,13 +53,16 @@
       margin-right: 5px;
       color: white;
     }
+    .main-menu {
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Face</a>
+        <a class="navbar-brand" href="/">FDCN</a>
       </div>
       <div class="navbar-header">
         <a class="navbar-brand" href="/database">Database</a>
@@ -64,48 +77,20 @@
       </div>
     </div>
   </nav>
-  <div class="container">
-    <h1>Recognize People</h1>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <form class="form-horizontal" action="/recognition" enctype="multipart/form-data" method="post">
-          <div class="form-group">
-            <label for="recognizeFile" class="control-label col-sm-2">Image:</label>
-            <div class="col-sm-10">
-              <input type="file" class="form-control file-input" id="recognizeFile" name="file" required>
-            </div>
-          </div>
-            {{#if recognitionComplete}}
-              <div class="form-group">
-                <label for="recognizeFile" class="control-label col-sm-2">Preview:</label>
-                <div class="col-sm-10">
-                  <img src="/recognition/last-processed-image" style="max-width: 100%; max-height: 450px" />
-                </div>
-              </div>
-            {{/if}}
-          <div class="form-group">
-            <label class="control-label col-sm-2">People:</label>
-            <div class="col-sm-10 people-display">
-              {{#each matchingNames}}
-                <div class="people-badge">
-                  <span class="glyphicon glyphicon-user people-icon"></span> {{this}}
-                </div>
-              {{/each}}
-              {{#unless matchingNames}}
-                {{#if recognitionComplete}}
-                  <i>No one was recognized on the picture :(</i>
-                {{else}}
-                  <i>Upload image to recognize people in it!</i>
-                {{/if}}
-              {{/unless}}
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Check for Familiar Faces</button>
-            </div>
-          </div>
-        </form>
+  <div class="container main-menu">
+    <h1 style="position: relative;">Facial Detection in Natural Scene Images</h1>
+    <div class="panel panel-default" style="margin-left:auto; margin-right:auto;">
+      <div class="panel-body" style="align-content: center; margin: 0 auto;">
+        <table style="width:100%; padding-left:30%; text-align:center; border-collapse:collapse">
+           <tr>
+            <th class="text-center">Database</th>
+            <th class="text-center">Detection / Recognition</th>
+          </tr>
+          <tr>
+            <td>Eve</td>
+            <td>Jackson</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

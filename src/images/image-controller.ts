@@ -27,7 +27,7 @@ router.post('/images', uploadMiddleware, ctx => {
     }
 
     saveImage(id, name, ctx.files.file[0].buffer);
-    ctx.redirect('/');
+    ctx.redirect('/database');
   }
 );
 
@@ -36,7 +36,7 @@ router.post('/images/actions/delete/:imageName', ctx => {
   const userId = getUserId(ctx);
 
   deleteImage(userId, imageName);
-  ctx.redirect('/');
+  ctx.redirect('/database');
 });
 
 export default app => app.use(router.routes());
