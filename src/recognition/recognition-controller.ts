@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import multer from '@koa/multer';
 import fs from 'fs';
+import handlebars from 'handlebars';
 import path from 'path';
 
 import {getUsersImagesData} from '../images/services';
@@ -18,6 +19,13 @@ function uploadedImagePath(userId: string) {
   return path.join(__dirname, 'last-uploaded', userId);
 }
 
+export function renderDetectionView(context: object) {
+  const viewAbsolutePath = path.join(__dirname, 'detection.handlebars');
+  const renderView = handlebars.compile(fs.readFileSync(viewAbsolutePath, { encoding: 'utf8' }));
+
+  return renderView(context);
+}
+
 router.post('/recognition', uploadMiddleware, async ctx => {
   const id = getUserId(ctx);
 
@@ -28,7 +36,7 @@ router.post('/recognition', uploadMiddleware, async ctx => {
   const matchIndices = await findMatches(images.map(image => image.path), uploadedImagePath(id));
   const matchingNames = matchIndices.map(matchIndex => images[matchIndex].imageName);
 
-  ctx.body = renderDashboardView({ images, matchingNames, recognitionComplete: true });
+  ctx.body = renderDetectionView({ images, matchingNames, recognitionComplete: true });
 });
 
 router.get('/recognition/last-processed-image', ctx => {

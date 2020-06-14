@@ -65,44 +65,45 @@
     </div>
   </nav>
   <div class="container">
-    <h1>Recognize People</h1>
+    {{#if images}}
+      <h1>Facial Detection</h1>
+    {{/if}}
+    <div class="row">
+    {{#each images}}
+      <div class="col-sm-3">
+        <div class="thumbnail">
+          <img src="{{this.url}}" style="width:100%" />
+          <div class="caption">
+            <p class="p-center">{{this.imageName}}</p>
+          </div>
+            <form action="/images/actions/delete/{{this.imageName}}" method="post">
+              <button type="submit" class="btn btn-danger btn-delete" aria-label="Delete">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" />
+            </form>
+          </button>
+        </div>
+      </div>
+    {{/each}}
+    </div>
+    <h1>Add a Person</h1>
     <div class="panel panel-default">
       <div class="panel-body">
-        <form class="form-horizontal" action="/recognition" enctype="multipart/form-data" method="post">
+        <form class="form-horizontal" action="/images" method="post" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="recognizeFile" class="control-label col-sm-2">Image:</label>
+            <label for="file" class="control-label col-sm-2">Image:</label>
             <div class="col-sm-10">
-              <input type="file" class="form-control file-input" id="recognizeFile" name="file" required>
+              <input type="file" class="form-control file-input" id="file" name="file" required>
             </div>
           </div>
-            {{#if recognitionComplete}}
-              <div class="form-group">
-                <label for="recognizeFile" class="control-label col-sm-2">Preview:</label>
-                <div class="col-sm-10">
-                  <img src="/recognition/last-processed-image" style="max-width: 100%; max-height: 450px" />
-                </div>
-              </div>
-            {{/if}}
           <div class="form-group">
-            <label class="control-label col-sm-2">People:</label>
-            <div class="col-sm-10 people-display">
-              {{#each matchingNames}}
-                <div class="people-badge">
-                  <span class="glyphicon glyphicon-user people-icon"></span> {{this}}
-                </div>
-              {{/each}}
-              {{#unless matchingNames}}
-                {{#if recognitionComplete}}
-                  <i>No one was recognized on the picture :(</i>
-                {{else}}
-                  <i>Upload image to recognize people in it!</i>
-                {{/if}}
-              {{/unless}}
+            <label for="name" class="control-label col-sm-2">Full name:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" required>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Check for Familiar Faces</button>
+              <button type="submit" class="btn btn-primary">Add to FamiliarFace</button>
             </div>
           </div>
         </form>
