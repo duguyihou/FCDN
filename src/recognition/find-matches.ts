@@ -1,5 +1,6 @@
 import canvas from 'canvas';
 import * as faceapi from 'face-api.js';
+import DrawBox from 'face-api.js'
 import path from 'path';
 
 const { Canvas, Image, ImageData } = canvas as any;
@@ -59,6 +60,43 @@ export async function findMatches(knownFacesPaths: string[], unknownFacePath: st
   }
 
   return matchesIndices;
+}
+
+export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFacePath: string) {
+  const unknownDescriptors = await loadFaceDescriptorsFromFile(unknownFacePath);
+  const resizedDetection = faceapi.resizeResults(unknownDescriptors, { width: 200, height: 300 })
+
+
+  if (unknownDescriptors.length === 0) {
+    return [];
+  }
+
+  let canvasBoxes;
+  let image = await canvas.loadImage(unknownFacePath) as any;
+
+  const facesMatchers = unknownDescriptors.map(descriptor => new faceapi.FaceMatcher(descriptor.descriptor));
+
+  const matchesIndices = new Array<number>();
+
+  for (const [index, knownFacePath] of knownFacesPaths.entries()) {
+    const knownDescriptors = await loadFaceDescriptorsFromFile(knownFacePath);
+    if (knownDescriptors.length === 0) {
+      continue;
+    }
+    for (const faceMatcher of facesMatchers) {
+      const bestMatch = faceMatcher.findBestMatch(knownDescriptors[0].descriptor);
+      if (bestMatch.label !== 'unknown') {
+        
+          facesMatchers.forEach((result, i) => {
+
+            const box = resizedDetection[i].detection.box
+            const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
+            drawBox.draw(canvasBoxes)
+          })
+      }
+    }
+  }
+
 }
 
 export async function faceDetection() {
