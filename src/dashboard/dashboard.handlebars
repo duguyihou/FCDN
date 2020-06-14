@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bgimage" lang="en">
+<html lang="en">
 <head>
   <title>Facial Detection</title>
   <meta charset="utf-8">
@@ -22,7 +22,7 @@
       border-top: 1px solid #000;
     }
     .bgimage {
-      background-image: url('src/assets/Background.png');
+      background-image: url('https://www.uts.edu.au/sites/default/files/2019-06/22896%20Entrepreneurship%20at%20UTS%20website%20banner%20update_72dpi_FA.png');
     }
     .btn-delete {
       position: absolute;
@@ -56,43 +56,88 @@
     .main-menu {
       margin: 0 auto;
     }
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding-bottom: 10px;
+      
+    }
+    .navbar-brand {
+      color:white
+    }
+    .menu-button {
+      position: relative;
+      font-size:40px; 
+      text-align:center; 
+      color:#333; 
+      display:inline-block; 
+      border:white; 
+      font-family:sans-serif; 
+      text-shadow: 2px 2px #333;
+      margin-bottom:40px; 
+      background-color:white;
+      padding: 15px 32px;
+      margin-right: 10px;
+      border-radius: 10px;
+    }
   </style>
 </head>
-<body>
+<body class="bgimage">
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">FDCN</a>
+        <img class="navbar-brand" src="https://webstockreview.net/images/triangular-clipart-2d-shape-2.png"></img>
       </div>
       <div class="navbar-header">
-        <a class="navbar-brand" href="/database">Database</a>
+        <a class="navbar-brand" style="color: white;" href="/">FDCN</a>
       </div>
       <div class="navbar-header">
-        <a class="navbar-brand" href="/detection">Detection</a>
+        <a class="navbar-brand" style="color: white;" href="/database">Database</a>
+      </div>
+      <div class="navbar-header">
+        <a class="navbar-brand" style="color: white;" href="/detection">Detection</a>
       </div>
       <div class="navbar-header">
         <form action="/logout" method="post">
-          <button type="submit" class="navbar-brand btn btn-link btn-logout">Logout</button>
+          <button type="submit" style="color: white;" class="navbar-brand btn btn-link btn-logout">Logout</button>
         </form>
       </div>
     </div>
   </nav>
   <div class="container main-menu">
-    <h1 style="position: relative;">Facial Detection in Natural Scene Images</h1>
-    <div class="panel panel-default" style="margin-left:auto; margin-right:auto;">
-      <div class="panel-body" style="align-content: center; margin: 0 auto;">
-        <table style="width:100%; padding-left:30%; text-align:center; border-collapse:collapse">
+    <h1 style="position: relative; font-size:48px; text-align:center; color:white; font-family:sans-serif; text-shadow: 2px 2px #333; margin-bottom:40px">Facial Detection in Natural Scene Images</h1>
+    <p style="position: relative; font-size:18px; text-align:center; color:white; font-family:sans-serif; text-shadow: 2px 2px #333; margin-bottom:40px">
+      This application provides users the ability to perform Facial Recognition on people of interest by taking a photo of them and uploading it to this web application.
+      Users are also able to identify users they consider persons of interest and or possible threats by uploading images with identification attributes for both themselves and other users
+      to perform recognition on previously un-identified individuals
+    </p>
+    <div style="margin-left:auto; margin-right:auto;">
+      <div style="align-content: center; margin: 0 auto;">
+        <table style="width:100%; padding-left:50%; content-align:center; border-collapse:collapse">
            <tr>
-            <th class="text-center">Database</th>
-            <th class="text-center">Detection / Recognition</th>
-          </tr>
-          <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
+            <form action="/database" method="get">
+              <button type="submit" class="menu-button" class="navbar-brand btn btn-link btn-logout">Database</button>
+            </form>
+            <form action="/detection" method="get">
+              <button type="submit" class="menu-button" class="navbar-brand btn btn-link btn-logout">Detection / Recognition</button>
+            </form>
           </tr>
         </table>
       </div>
     </div>
   </div>
 </body>
+<footer class="footer">
+  <p style="padding-top:10px;">Deep Learning and Convolutional Neural Networks UTS<br><br>
+     Application Created by:
+     Joshua Keegan,
+     Yongcong Hou,
+     Yudi Chen
+  </p>
+</footer>
 </html>

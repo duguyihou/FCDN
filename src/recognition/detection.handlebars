@@ -8,11 +8,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <style>
-    p {
+     p {
       margin: 0;
+    }
+    html, body {
+    margin: 0;
+    height: 100%;
     }
     h1 {
       margin: 0 0 20px 0;
+    }
+    td {
+      border-top: 1px solid #000;
+    }
+    .bgimage {
+      background-image: url('https://www.uts.edu.au/sites/default/files/2019-06/22896%20Entrepreneurship%20at%20UTS%20website%20banner%20update_72dpi_FA.png');
     }
     .btn-delete {
       position: absolute;
@@ -43,9 +53,41 @@
       margin-right: 5px;
       color: white;
     }
+    .main-menu {
+      margin: 0 auto;
+    }
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding-bottom: 10px;
+      
+    }
+    .navbar-brand {
+      color:white
+    }
+    .menu-button {
+      position: relative;
+      font-size:40px; 
+      text-align:center; 
+      color:#333; 
+      display:inline-block; 
+      border:white; 
+      font-family:sans-serif; 
+      text-shadow: 2px 2px #333;
+      margin-bottom:40px; 
+      background-color:white;
+      padding: 15px 32px;
+      margin-right: 10px;
+      border-radius: 10px;
+    }
   </style>
 </head>
-<body>
+<body class="bgimage">
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
@@ -115,4 +157,12 @@
     </div>
   </div>
 </body>
+<footer class="footer">
+  <p style="padding-top:10px;">Deep Learning and Convolutional Neural Networks UTS<br><br>
+     Application Created by:
+     Joshua Keegan,
+     Yongcong Hou,
+     Yudi Chen
+  </p>
+</footer>
 </html>
