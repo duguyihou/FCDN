@@ -5,7 +5,7 @@ import handlebars from 'handlebars';
 import path from 'path';
 
 import {getUsersImagesData} from '../images/services';
-import {findMatches} from './find-matches';
+import {findMatches, displayDetectionBoxes} from './find-matches';
 import {ensureLoggedIn, getUserId} from '../auth/services';
 import {renderDashboardView} from '../dashboard/dashboard-controller';
 
@@ -34,9 +34,10 @@ router.post('/recognition', uploadMiddleware, async ctx => {
   const images = getUsersImagesData(id);
 
   const matchIndices = await findMatches(images.map(image => image.path), uploadedImagePath(id));
+  const detectFaces = await displayDetectionBoxes(images.map(image => image.path), uploadedImagePath(id));
   const matchingNames = matchIndices.map(matchIndex => images[matchIndex].imageName);
 
-  ctx.body = renderDetectionView({ images, matchingNames, recognitionComplete: true });
+  ctx.body = renderDetectionView({ images, matchingNames, recognitionComplete: true, detectFaces});
 });
 
 router.get('/recognition/last-processed-image', ctx => {

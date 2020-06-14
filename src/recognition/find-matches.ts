@@ -70,13 +70,15 @@ export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFa
   if (unknownDescriptors.length === 0) {
     return [];
   }
-
-  let canvasBoxes;
+  
   let image = await canvas.loadImage(unknownFacePath) as any;
 
-  const facesMatchers = unknownDescriptors.map(descriptor => new faceapi.FaceMatcher(descriptor.descriptor));
+  let canvasBoxes = faceapi.createCanvasFromMedia(image);
 
-  const matchesIndices = new Array<number>();
+
+  canvasBoxes.getContext('2d');
+
+  const facesMatchers = unknownDescriptors.map(descriptor => new faceapi.FaceMatcher(descriptor.descriptor));
 
   for (const [index, knownFacePath] of knownFacesPaths.entries()) {
     const knownDescriptors = await loadFaceDescriptorsFromFile(knownFacePath);
@@ -93,6 +95,14 @@ export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFa
             const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
             drawBox.draw(canvasBoxes)
           })
+          
+          let imageurl = canvasBoxes.toDataURL('image/png')
+
+          var imageWithBoxes = new Image();
+
+          imageWithBoxes.src = imageurl;
+
+          return imageWithBoxes;
       }
     }
   }
