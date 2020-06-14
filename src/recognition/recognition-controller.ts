@@ -34,8 +34,9 @@ router.post('/recognition', uploadMiddleware, async ctx => {
   const images = getUsersImagesData(id);
 
   const matchIndices = await findMatches(images.map(image => image.path), uploadedImagePath(id));
-  const detectFaces = await displayDetectionBoxes(images.map(image => image.path), uploadedImagePath(id));
   const matchingNames = matchIndices.map(matchIndex => images[matchIndex].imageName);
+
+  const detectFaces = await displayDetectionBoxes(images.map(image => image.path), uploadedImagePath(id), matchingNames);
 
   ctx.body = renderDetectionView({ images, matchingNames, recognitionComplete: true, detectFaces});
 });

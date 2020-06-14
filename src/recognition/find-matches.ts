@@ -2,6 +2,7 @@ import canvas from 'canvas';
 import * as faceapi from 'face-api.js';
 import DrawBox from 'face-api.js'
 import path from 'path';
+import { getUsersImagesData } from '../images/services';
 
 const { Canvas, Image, ImageData } = canvas as any;
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData });
@@ -62,18 +63,15 @@ export async function findMatches(knownFacesPaths: string[], unknownFacePath: st
   return matchesIndices;
 }
 
-export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFacePath: string) {
+export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFacePath: string, matchingNames: string[]) {
   const unknownDescriptors = await loadFaceDescriptorsFromFile(unknownFacePath);
-  let image = await canvas.loadImage(unknownFacePath) as any;
-
-
-  const resizedDetection = faceapi.resizeResults(unknownDescriptors, { width: image.width, height: image.height })
-
 
   if (unknownDescriptors.length === 0) {
     return [];
   }
 
+  let image = await canvas.loadImage(unknownFacePath) as any;
+  const resizedDetection = faceapi.resizeResults(unknownDescriptors, { width: image.width, height: image.height })
 
   let canvasBoxes = faceapi.createCanvasFromMedia(image);
 
@@ -94,7 +92,7 @@ export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFa
           facesMatchers.forEach((result, i) => {
 
             const box = resizedDetection[i].detection.box
-            const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
+            const drawBox = new faceapi.draw.DrawBox(box, { label: matchingNames[i] })
             drawBox.draw(canvasBoxes)
           })
           
