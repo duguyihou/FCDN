@@ -91,6 +91,11 @@
                   <span class="glyphicon glyphicon-user people-icon"></span> {{this}}
                 </div>
               {{/each}}
+              {{#each detectFaces}}
+                <div class="test">
+                  <img class="test2" src="{{this}}"></img>
+                </div>
+            {{/each}}
               {{#unless matchingNames}}
                 {{#if recognitionComplete}}
                   <i>No one was recognized on the picture :(</i>

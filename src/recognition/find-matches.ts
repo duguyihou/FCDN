@@ -64,14 +64,16 @@ export async function findMatches(knownFacesPaths: string[], unknownFacePath: st
 
 export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFacePath: string) {
   const unknownDescriptors = await loadFaceDescriptorsFromFile(unknownFacePath);
-  const resizedDetection = faceapi.resizeResults(unknownDescriptors, { width: 200, height: 300 })
+  let image = await canvas.loadImage(unknownFacePath) as any;
+
+
+  const resizedDetection = faceapi.resizeResults(unknownDescriptors, { width: image.width, height: image.height })
 
 
   if (unknownDescriptors.length === 0) {
     return [];
   }
-  
-  let image = await canvas.loadImage(unknownFacePath) as any;
+
 
   let canvasBoxes = faceapi.createCanvasFromMedia(image);
 
