@@ -1,4 +1,3 @@
-  
-  export function getUserId(ctx) {
-    return '123321';
-  }
+export function getUserId(ctx) {
+  return "fdcn";
+}
