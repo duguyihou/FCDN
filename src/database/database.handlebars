@@ -91,24 +91,27 @@
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Face</a>
+        <img class="navbar-brand" src="https://webstockreview.net/images/triangular-clipart-2d-shape-2.png"></img>
       </div>
       <div class="navbar-header">
-        <a class="navbar-brand" href="/database">Database</a>
+        <a class="navbar-brand" style="color: white;" href="/">FDCN</a>
       </div>
       <div class="navbar-header">
-        <a class="navbar-brand" href="/detection">Detection</a>
+        <a class="navbar-brand" style="color: white;" href="/database">Database</a>
+      </div>
+      <div class="navbar-header">
+        <a class="navbar-brand" style="color: white;" href="/detection">Detection</a>
       </div>
       <div class="navbar-header">
         <form action="/logout" method="post">
-          <button type="submit" class="navbar-brand btn btn-link btn-logout">Logout</button>
+          <button type="submit" style="color: white;" class="navbar-brand btn btn-link btn-logout">Logout</button>
         </form>
       </div>
     </div>
   </nav>
   <div class="container">
     {{#if images}}
-      <h1>Facial Detection</h1>
+      <h1 style="color:white; text-shadow: 2px 2px #333;">Facial Detection</h1>
     {{/if}}
     <div class="row">
     {{#each images}}
@@ -127,7 +130,7 @@
       </div>
     {{/each}}
     </div>
-    <h1>Add a Person</h1>
+    <h1 style="color:white; text-shadow: 2px 2px #333;">Add a Person</h1>
     <div class="panel panel-default">
       <div class="panel-body">
         <form class="form-horizontal" action="/images" method="post" enctype="multipart/form-data">
