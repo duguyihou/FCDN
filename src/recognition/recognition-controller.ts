@@ -5,13 +5,12 @@ import path from 'path';
 
 import {getUsersImagesData} from '../images/services';
 import {findMatches} from './find-matches';
-import {ensureLoggedIn, getUserId} from '../auth/services';
+import {getUserId} from '../auth/services';
 import {renderDashboardView} from '../dashboard/dashboard-controller';
 
 const uploadMiddleware = multer().fields([{ name: 'file', maxCount: 1 }]);
 
 const router = new Router<any, any>();
-router.use(ensureLoggedIn);
 
 function uploadedImagePath(userId: string) {
   fs.mkdirSync(path.join(__dirname, 'last-uploaded'), { recursive: true });

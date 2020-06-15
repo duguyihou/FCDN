@@ -60,7 +60,3 @@ export async function findMatches(knownFacesPaths: string[], unknownFacePath: st
 
   return matchesIndices;
 }
-
-export async function faceDetection() {
-  
-}
