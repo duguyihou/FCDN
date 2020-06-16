@@ -2,15 +2,18 @@
   "name": "familiar-faces",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build-ts": "tsc",
     "postinstall": "npm run build-ts",
     "start": "npm run serve",
-    "serve": "node dist/server.js",
-    "watch-node": "nodemon dist/server.js",
+    "serve": "node server.js",
+    "watch-node": "nodemon server.js",
     "watch-ts": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.11.4"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +24,7 @@
     "@tensorflow/tfjs-node": "^2.0.0",
     "canvas": "^2.6.1",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "face-api.js": "^0.21.0",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
