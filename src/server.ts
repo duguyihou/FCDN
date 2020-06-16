@@ -17,5 +17,5 @@ for (const registerController of controllersRegistrators) {
   registerController(app);
 }
 
-app.listen(8080);
+app.listen(80);
 console.log('listening on port 8080');
