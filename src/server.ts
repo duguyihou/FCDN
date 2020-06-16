@@ -5,8 +5,8 @@ import bodyParser from 'koa-bodyparser';
 import path from 'path';
 import glob from 'glob';
 
-const app = new Koa<any>();
-app.use(bodyParser());
+const server = new Koa<any>();
+server.use(bodyParser());
 
 const controllersRegistrators =
   glob.sync(path.join(__dirname, '**/*-controller.ts'))
@@ -14,8 +14,9 @@ const controllersRegistrators =
     .map(controller => controller.default);
 
 for (const registerController of controllersRegistrators) {
-  registerController(app);
+  registerController(server);
 }
 
-app.listen(80);
-console.log('listening on port 8080');
+const port = process.env.PORT || 3000;
+
+server.listen(port, () => console.log('listening on port ${port}'));
