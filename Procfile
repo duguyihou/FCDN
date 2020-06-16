@@ -1,1 +1,1 @@
-web: FCDN/src/server.ts
+web: server.js
