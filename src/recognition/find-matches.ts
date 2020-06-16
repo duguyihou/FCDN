@@ -7,7 +7,7 @@ import { getUsersImagesData } from '../images/services';
 const { Canvas, Image, ImageData } = canvas as any;
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData });
 
-const faceDetectionOptions = new faceapi.SsdMobilenetv1Options({ minConfidence: 0.8 });
+const faceDetectionOptions = new faceapi.SsdMobilenetv1Options({ minConfidence: 0.85 });
 const weightsPath = path.join(__dirname, 'weights');
 
 let configured = false;
@@ -87,35 +87,33 @@ export async function displayDetectionBoxes(knownFacesPaths: string[], unknownFa
     }
     for (const faceMatcher of facesMatchers) {
       const bestMatch = faceMatcher.findBestMatch(knownDescriptors[0].descriptor);
-      if (bestMatch.label !== 'unknown') {
         
-          facesMatchers.forEach((result, i) => {
+        facesMatchers.forEach((result, i) => {
 
-            var labelResult
+          var labelResult
 
-            if (matchingNames[i] == null) {
+          if (matchingNames[i] == null) {
 
-              labelResult = "Unkown"
-            }
+            labelResult = "Unknown"
+          }
 
-            else {
+          else {
 
-              labelResult = matchingNames[i]
-            }
+            labelResult = matchingNames[i]
+          }
 
-            const box = resizedDetection[i].detection.box
-            const drawBox = new faceapi.draw.DrawBox(box, { label: labelResult })
-            drawBox.draw(canvasBoxes)
-          })
-          
-          let imageurl = canvasBoxes.toDataURL('image/png')
+          const box = resizedDetection[i].detection.box
+          const drawBox = new faceapi.draw.DrawBox(box, { label: labelResult })
+          drawBox.draw(canvasBoxes)
+        })
+        
+        let imageurl = canvasBoxes.toDataURL('image/png')
 
-          var imageWithBoxes = new Image();
+        var imageWithBoxes = new Image();
 
-          imageWithBoxes.src = imageurl;
+        imageWithBoxes.src = imageurl;
 
-          return imageWithBoxes;
-      }
+        return imageWithBoxes;
     }
   }
 
