@@ -5,10 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> --}}
+  <script src="realtime.js"></script>
   <style>
-    p {
+     p {
       margin: 0;
     }
     html, body {
@@ -78,9 +79,10 @@
       display:inline-block; 
       border:white; 
       font-family:sans-serif; 
+      text-shadow: 2px 2px #333;
       margin-bottom:40px; 
       background-color:white;
-      padding: 30px 50px;
+      padding: 15px 32px;
       margin-right: 10px;
       border-radius: 10px;
     }
@@ -102,36 +104,17 @@
         <a class="navbar-brand" style="color: white;" href="/detection">Detection</a>
       </div>
       <div class="navbar-header">
-        <a class="navbar-brand" style="color: white;" href="/realtime">RealTime Detection</a>
-      </div>
-      <div class="navbar-header">
         <form action="/logout" method="post">
           <button type="submit" style="color: white;" class="navbar-brand btn btn-link btn-logout">Logout</button>
         </form>
       </div>
     </div>
   </nav>
-  <div class="container main-menu">
-    <h1 style="position: relative; font-size:48px; text-align:center; color:white; font-family:sans-serif; text-shadow: 2px 2px #333; margin-bottom:40px">Facial Detection in Natural Scene Images</h1>
-    <p style="position: relative; font-size:18px; text-align:center; color:white; font-family:sans-serif; text-shadow: 2px 2px #333; margin-bottom:40px">
-      This application provides users the ability to perform Facial Recognition on people of interest by taking a photo of them and uploading it to this web application.
-      Users are also able to identify users they consider persons of interest and or possible threats by uploading images with identification attributes for both themselves and other users
-      to perform recognition on previously un-identified individuals
-    </p>
-    <div style="margin-left:auto; margin-right:auto;">
-      <div style="align-content: center; margin: 0 auto;">
-        <table style="width:100%; padding-left:50%; content-align:center; border-collapse:collapse" HorizontalAlign="Center">
-           <tr>
-            <form action="/database" method="get">
-              <button type="submit" class="menu-button" class="navbar-brand btn btn-link btn-logout">Database</button>
-            </form>
-            <form action="/detection" method="get">
-              <button type="submit" class="menu-button" class="navbar-brand btn btn-link btn-logout">Detection / Recognition</button>
-            </form>
-          </tr>
-        </table>
-      </div>
-    </div>
+  <div class="container">
+    <div style="position: relative" class="margin">
+    <video id="video" width="720" height="560" autoplay muted></video>
+    <canvas id="overlay" />
+</div>
   </div>
 </body>
 <footer class="footer">

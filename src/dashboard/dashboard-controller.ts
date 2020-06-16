@@ -7,6 +7,7 @@ import {getUsersImagesData} from '../images/services';
 import {ensureLoggedIn, getUserId} from '../auth/services';
 import {renderDatabaseView} from '../database/database-controller'
 import {renderDetectionView} from '../recognition/recognition-controller'
+import { renderRealTimeView } from '../realtime/realtime-controller';
 
 const router = new Router();
 
@@ -36,6 +37,11 @@ router.get('/database', ctx => {
 router.get('/detection', ctx => {
   const images = getUsersImagesData(getUserId(ctx));
   ctx.body = renderDetectionView({ images });
+});
+
+router.get('/realtime', ctx => {
+  const images = getUsersImagesData(getUserId(ctx));
+  ctx.body = renderRealTimeView({ images });
 });
 
 export default app => app.use(router.routes());
