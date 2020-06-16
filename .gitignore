@@ -164,4 +164,9 @@ sketch
 # Ignore all local history of files
 .history
 
+/node_modules
+npm-debug.log
+.DS_Store
+/*.env
+
 # End of https://www.toptal.com/developers/gitignore/api/node,react,macos,visualstudiocode

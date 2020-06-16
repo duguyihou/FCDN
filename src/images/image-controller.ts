@@ -2,11 +2,9 @@ import fs from 'fs';
 import Router from 'koa-router';
 import multer from '@koa/multer';
 import {deleteImage, getImagePath, saveImage} from './services';
-import {ensureLoggedIn, getUserId} from '../auth/services';
+import {getUserId} from '../auth/services';
 
 const router = new Router<any, any>();
-
-router.use(ensureLoggedIn);
 
 router.get('/images/:imageName', ctx => {
   const { imageName } = ctx.params;

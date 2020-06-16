@@ -4,11 +4,11 @@ import handlebars from 'handlebars';
 import fs from 'fs';
 
 import {getUsersImagesData} from '../images/services';
-import {ensureLoggedIn, getUserId} from '../auth/services';
+import {getUserId} from '../auth/services';
 
 const router = new Router();
 
-router.use(ensureLoggedIn);
+// router.use(ensureLoggedIn);
 
 /*
   Opens a dashboard.handlebars template file and converts it to HTML string.
