@@ -5,9 +5,10 @@ import handlebars from 'handlebars';
 import path from 'path';
 
 import {getUsersImagesData} from '../images/services';
-import {findMatches, displayDetectionBoxes} from './find-matches';
+import {findMatches} from './find-matches';
 import {ensureLoggedIn, getUserId} from '../auth/services';
 import {renderDashboardView} from '../dashboard/dashboard-controller';
+import { match } from 'assert';
 
 const uploadMiddleware = multer().fields([{ name: 'file', maxCount: 1 }]);
 
@@ -33,12 +34,16 @@ router.post('/recognition', uploadMiddleware, async ctx => {
 
   const images = getUsersImagesData(id);
 
-  const matchIndices = await findMatches(images.map(image => image.path), uploadedImagePath(id));
-  const matchingNames = matchIndices.map(matchIndex => images[matchIndex].imageName);
+  const matchIndices = await findMatches(images.map(image => image.path), uploadedImagePath(id), ctx);
 
-  const detectFaces = await displayDetectionBoxes(images.map(image => image.path), uploadedImagePath(id), matchingNames);
+  // const matchingNames = matchIndices.map(matchIndex => images[matchIndex].imageName);
 
-  ctx.body = renderDetectionView({ images, matchingNames, recognitionComplete: true, detectFaces});
+  // const detectFaces = await displayDetectionBoxes(images.map(image => image.path), uploadedImagePath(id), matchingNames);
+
+  const names = matchIndices['names']
+  const detectFaces = matchIndices['image']
+
+  ctx.body = renderDetectionView({ images, names, recognitionComplete: true, detectFaces});
 });
 
 router.get('/recognition/last-processed-image', ctx => {

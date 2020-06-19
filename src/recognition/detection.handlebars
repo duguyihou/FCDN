@@ -139,12 +139,12 @@
           <div class="form-group">
             <label class="control-label col-sm-2">People:</label>
             <div class="col-sm-10 people-display">
-              {{#each matchingNames}}
+              {{#each names}}
                 <div class="people-badge">
                   <span class="glyphicon glyphicon-user people-icon"></span> {{this}}
                 </div>
               {{/each}}
-              {{#unless matchingNames}}
+              {{#unless names}}
                 {{#if recognitionComplete}}
                   <i>No one was recognized on the picture :(</i>
                 {{else}}
